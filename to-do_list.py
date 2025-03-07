@@ -16,7 +16,7 @@ def delete_task(task_num):
     else:
         print("Invalid task number")
 
-add_task("Finish homework")
+add_task("Work is Done")
 add_task("Go for a run")
 view_tasks()
 delete_task(1)
