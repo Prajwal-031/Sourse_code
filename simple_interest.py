@@ -1,3 +1,4 @@
+# Write a Python program to calculate simple interest.
 def simple_interest(principal, rate, time):
     return (principal * rate * time) / 100
 
