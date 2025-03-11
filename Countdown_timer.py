@@ -1,3 +1,5 @@
+# Description: A simple countdown timer that counts down from a specified time in seconds.
+
 todo_list = []
 
 def add_task(task):
@@ -21,3 +23,5 @@ add_task("Go for a run")
 view_tasks()
 delete_task(1)
 view_tasks()
+
+
