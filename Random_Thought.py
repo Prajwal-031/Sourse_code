@@ -1,3 +1,4 @@
+# Description: This script prints a random thought from a list of thoughts.
 import random
 
 thoughts = [
