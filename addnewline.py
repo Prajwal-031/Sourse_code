@@ -5,7 +5,7 @@ def add_line_to_file(filename, line_number):
         f.write(f"Line {line_number}: This is line {line_number} added at {time.strftime('%Y-%m-%d %H:%M:%S')}\n")
 
 # Example usage
-filename = "my_log.py"
+filename = "my_log.txt"
 line_count = 0
 
 while True:
