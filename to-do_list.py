@@ -1,3 +1,4 @@
+# Description: A simple to-do list program that allows users to add, view, and delete tasks.
 todo_list = []
 
 def add_task(task):
