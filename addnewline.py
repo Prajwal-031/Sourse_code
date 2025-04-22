@@ -17,4 +17,4 @@ while True:
     line_count += 1
     add_line_to_file(filename, line_count)
     git_commit()
-    time.sleep(5) # Add a delay to see the effect
+    time.sleep(1) # Add a delay to see the effect
