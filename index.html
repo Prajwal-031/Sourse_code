@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Flutter + Generative AI (Web)</title>
+    <style>
+body {
+    font-family: sans-serif;
+    background-color: #121212; /* Dark background */
+    color: #ffffff; /* White text */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+#app {
+    width: 80%;
+    max-width: 600px;
+    background-color: #1e1e1e; /* Darker container */
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+#chat-screen {
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+    display: flex; /* Make chat screen visible */
+}
+
+#messages {
+    flex-grow: 1;
+    overflow-y: scroll;
+    padding: 10px;
+}
+
+.message {
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    word-wrap: break-word; /* added */
+}
+
+.user-message {
+    background-color: #37474f; /* User message background */
+    align-self: flex-end;
+}
+
+.bot-message {
+    background-color: #424242; /* Bot message background */
+    align-self: flex-start;
+}
+
+#input-area {
+    display: flex;
+    margin-top: 10px;
+}
+
+#prompt-input {
+    flex-grow: 1;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #212121;
+    color: #ffffff;
+}
+
+#send-button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #2979ff; /* Primary color */
+    color: #ffffff;
+    cursor: pointer;
+}
+
+#api-key-input {
+    padding: 20px;
+    text-align: center;
+    /* Style the API key input */
+    display: none; /* Hide the API key input */
+}
+
+#api-key-input p {
+    margin-bottom: 10px;
+}
+
+#api-key {
+    padding: 10px;
+    margin: 10px;
+    width: 70%;
+    border: none;
+    border-radius: 5px;
+    background-color: #212121;
+    color: #ffffff;
+}
+
+#submit-api-key {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #2979ff;
+    color: #ffffff;
+    cursor: pointer;
+}
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div id="chat-screen">
+            <div id="messages">
+                <!-- Messages will be displayed here -->
+            </div>
+            <div id="input-area">
+                <input type="text" id="prompt-input" placeholder="Enter a prompt...">
+                <button id="send-button">Send</button>
+            </div>
+        </div>
+        <div id="api-key-input" style="display:none;">
+            <p>To use the Gemini API, you'll need an API key. Create a key in Google AI Studio.</p>
+            <a href="https://makersuite.google.com/app/apikey" target="_blank">Get an API Key</a>
+            <input type="text" id="api-key" placeholder="Enter your API key">
+            <button id="submit-api-key">Submit</button>
+        </div>
+    </div>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    localStorage.clear(); // Added to clear local storage
+    const apiKeyInput = document.getElementById('api-key-input');
+    const apiKeyField = document.getElementById('api-key');
+    const submitApiKeyButton = document.getElementById('submit-api-key');
+    const chatScreen = document.getElementById('chat-screen');
+    const messages = document.getElementById('messages');
+    const promptInput = document.getElementById('prompt-input');
+    const sendButton = document.getElementById('send-button');
+
+    let apiKey = localStorage.getItem('geminiApiKey');
+
+    // Function to display messages
+    function displayMessage(text, isUser) {
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('message');
+        messageDiv.classList.add(isUser ? 'user-message' : 'bot-message');
+        messageDiv.textContent = text;
+        messages.appendChild(messageDiv);
+        messages.scrollTop = messages.scrollHeight; // Scroll to bottom
+    }
+
+    // Function to handle sending messages (placeholder)
+    async function sendMessage(prompt) {
+        // In the future, this will call the Gemini API
+        displayMessage("Response from Gemini: " + prompt, false); // Mock response
+    }
+
+    // Function to show/hide elements based on API key
+    function updateUI() {
+        if (apiKey) {
+            apiKeyInput.style.display = 'none';
+            chatScreen.style.display = 'flex';
+        } else {
+            apiKeyInput.style.display = 'block';
+            chatScreen.style.display = 'none';
+        }
+    }
+
+    // Initial UI update
+    updateUI();
+
+    // Handle API key submission
+    submitApiKeyButton.addEventListener('click', () => {
+        apiKey = apiKeyField.value;
+        localStorage.setItem('geminiApiKey', apiKey);
+        updateUI();
+    });
+
+    // Handle sending a message
+    sendButton.addEventListener('click', () => {
+        const prompt = promptInput.value;
+        displayMessage(prompt, true);
+        sendMessage(prompt);
+        promptInput.value = '';
+    });
+});
+    </script>
+</body>
+</html>
